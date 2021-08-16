@@ -34,7 +34,7 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // 프로젝트에서 연결된 db의 넘버링 전략을 따름(oracle이면 시퀀스, mysql이면 auto_increment)
 	private int id;  // oracle(시퀀스), mysql(auto_increment로 넘버링하는 전략)- id부분을 비워놔도 자동으로 값이 들어감(auto_increment)
 	
-	@Column(nullable=false,length=20) //아이디가 null값이 되지않고, 최대한 20자가 넘지않게 설정
+	@Column(nullable=false,length=20,unique= true) //아이디가 null값이 되지않고, 최대한 20자가 넘지않게 설정
 	private String username; //아이디
 	  
 	@Column(nullable=false,length=100) //  비밀번호가 null값이 되지않고, 최대한 100자가 넘지않게 설정
