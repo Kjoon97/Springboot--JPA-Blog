@@ -1,9 +1,9 @@
 package com.joon.blog.service;
 
-import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.joon.blog.model.User;
 import com.joon.blog.repository.UserRepository;
@@ -17,18 +17,16 @@ public class UserService {
 	
 	//서비스함수 만들기  -> 여러 트랜잭션들의 집합체인 하나의 서비스(트랜잭션) 
 	@Transactional
-	public int 회원가입(User user) {
-		try {
+	public void 회원가입(User user) {
 			userRepository.save(user);   //하나의 트랜잭션
 //			userRepository.save(user);   //하나의 트랜잭션
 //			userRepository.save(user);   //하나의 트랜잭션
 //			userRepository.save(user);   //하나의 트랜잭션
-			return 1;
-		}catch(Exception e) {
-			e.printStackTrace();
-			System.out.println("UserService:회원가입()"+e.getMessage());
-		}
-		return -1;
+	}
+	
+	@Transactional(readOnly = true)  //Select할 때 트랜잭션이 시작하고, 서비스 종료시에 트랜잭션을 종료해서 (정합성 유지)
+	public User 로그인(User user) {
+		return userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword());
 	}
 }
  

@@ -3,7 +3,6 @@ package com.joon.blog.test;
 import java.util.List;
 import java.util.function.Supplier;
 
-import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;

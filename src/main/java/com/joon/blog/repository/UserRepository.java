@@ -6,6 +6,16 @@ import com.joon.blog.model.User;
 
 //JpaRepository<User,Integer>-> 해당 JpaRepository는 User테이블을 관리하고, User테이블 주요 키는 integer(숫자)이다. 
 public interface UserRepository extends JpaRepository<User,Integer>{
+	//JPA 네이밍 쿼리 전략
+	User findByUsernameAndPassword(String username, String password);  // 첫번째 방법
+	// 이 함수는 JPA내장 함수가 아니지만 내가 이런 형식으로 함수이름을 쓰면 쿼리 역할을 함수가 한다.
+	// 이 함수는 SELECT *FROM user WHERE = '첫번째 파라미터' AND WHERE ='두번째 파라미터' 역할을한다.  
+	
+	
+	
+	
+//	@Query(value = "SELECT *FROM user WHERE = '첫번째 파라미터' AND WHERE ='두번째 파라미터'", nativeQuery = true) //두번째 방법
+//    User login(String username, String password);   //위의 쿼리문이 호출되고 User 객체를 리턴
  
 } //-> 일반적인 crud를 할 경우 JpaRepository에 기능이 다 있기 때문에 extends했으면 함수 안에 더 무언가를 추가로 정의할 필요없음
 //자동으로 bean등록이된다. ->@Repository어노테이션 생략 가능 
