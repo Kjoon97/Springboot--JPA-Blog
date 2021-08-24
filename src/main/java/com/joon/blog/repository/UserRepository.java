@@ -1,5 +1,7 @@
 package com.joon.blog.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.joon.blog.model.User;
@@ -7,11 +9,11 @@ import com.joon.blog.model.User;
 //JpaRepository<User,Integer>-> 해당 JpaRepository는 User테이블을 관리하고, User테이블 주요 키는 integer(숫자)이다. 
 public interface UserRepository extends JpaRepository<User,Integer>{
 	//JPA 네이밍 쿼리 전략
-	User findByUsernameAndPassword(String username, String password);  // 첫번째 방법
+//	User findByUsernameAndPassword(String username, String password);  // 첫번째 방법(전통적인 로그인방법)
 	// 이 함수는 JPA내장 함수가 아니지만 내가 이런 형식으로 함수이름을 쓰면 쿼리 역할을 함수가 한다.
 	// 이 함수는 SELECT *FROM user WHERE = '첫번째 파라미터' AND WHERE ='두번째 파라미터' 역할을한다.  
 	
-	
+	Optional<User>findByUsername(String username);  // == SELECT *FROM user WHERE username = ?; 네이밍 쿼리 전략
 	
 	
 //	@Query(value = "SELECT *FROM user WHERE = '첫번째 파라미터' AND WHERE ='두번째 파라미터'", nativeQuery = true) //두번째 방법
