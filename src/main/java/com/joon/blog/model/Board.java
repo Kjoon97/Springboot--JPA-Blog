@@ -39,7 +39,6 @@ public class Board {
 	@Lob //대용량 데이터 쓸때 사용하는 어노테이션
 	private String content; // 글내용 (섬머노트 라이브러리 사용할건데 글이<html>태그가 섞여서 디자인 됨-> 용량이 커짐)
 	
-	@ColumnDefault("0") // 0 숫자이기 때문에 "" 안에 '' 안 써도됨
 	private int count; //조회수 
 	
      //Many=Board, User=One -> 한명의 유저는 여러 개의 게시글을 쓸 수 있다. (OneToOne이라면 한 유저 당 한 게시글 쓸 수 있음) 
@@ -50,7 +49,8 @@ public class Board {
 	                   // ->(필드 값은 userId로 되고, 연관관계는 ManyToOne으로 만들어짐)
 	                  // -> User 클래스를 참조하면서 자동으로 Board에서 외래키가 만들어짐
 	@OneToMany(mappedBy ="board", fetch = FetchType.EAGER) //원래는 OneToMany가 기본 패치 타입이 lazy이나 펼치기가 아닌 개방형 댓글이기 때문에eager로 함.
-	private List<Reply> reply;
+	private List<Reply> reply;      //mappedBy로 적혀있기 때문에 데이터베이스에 들어가는값이 아님. 연관관계 주인이 아니다. (난 외래키가 아니야)
+	                                //나중에 select하기위해 있는 코드이다. 
 	
 	@CreationTimestamp
 	private Timestamp createDate;

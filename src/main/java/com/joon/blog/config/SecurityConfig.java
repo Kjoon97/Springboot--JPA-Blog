@@ -43,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{  //쉽게말�
 				.antMatchers("/","/auth/**","/js/**","/css/**","/image/**")   // 근데 그 요청이 /auth/이하,js,css,image/이하,로 들어오는 것이면 
 				.permitAll()        //누구나 들어올 수 있다. 
 				.anyRequest()       //근데 이게 아닌 다른 요청은
-				.authenticated()    //인증이 되어야한다. 
+				.authenticated()    //인증이 되어야한다. (로그인을 해야한다.)
 		    .and()
 		    	.formLogin()
 		    	.loginPage("/auth/loginForm")  //인증이 필요하면(/auth/**가 아니면) 모두 이 주소(/auth/loginForm)로 이동한다.   // 로그인 요청이 오는 순간 이 코드가 가로챔->
