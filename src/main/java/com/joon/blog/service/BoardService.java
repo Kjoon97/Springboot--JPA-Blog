@@ -1,6 +1,8 @@
 package com.joon.blog.service;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -26,5 +28,10 @@ public class BoardService {
 		boardRepository.save(board);
 	} // ( model에 Board에 무슨 값을 가져와야하는지 살펴봐야함)- id는 자동으로 생성되고, title, content는 받을거고, 
       	// 조회수는 강제로 값 넣어줄거고, user정보 가져와야함. reply는 mappedby로 되어있어 데이터베이스에 들어있는 값이 아니므로 신경x
+	
+	
+	public List<Board> 글목록(){
+		return boardRepository.findAll();
+	}
 }
  
