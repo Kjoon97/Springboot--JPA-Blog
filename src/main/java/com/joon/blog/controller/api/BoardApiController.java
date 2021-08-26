@@ -5,6 +5,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,6 +31,12 @@ public class BoardApiController {
 	@DeleteMapping("/api/board/{id}")
 	public ResponseDto<Integer> deleteById(@PathVariable int id){
 		boardService.글삭제하기(id);
+		return new ResponseDto<Integer>(HttpStatus.OK.value(),1);
+	}
+	
+	@PutMapping("/api/board/{id}")   // @DeleteMapping이랑 주소가 같은데,@PutMapping으로 매서드가 다르기 때문에 괜찮음 
+	public ResponseDto<Integer> update(@PathVariable int id, @RequestBody Board board){
+		boardService.글수정하기(id,board);
 		return new ResponseDto<Integer>(HttpStatus.OK.value(),1);
 	}
 }

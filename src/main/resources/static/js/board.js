@@ -10,13 +10,18 @@ let index ={
 		$("#btn-delete").on("click",()=>{    //삭제 버튼
 			this.deleteById();                  
 		});
+		
+		$("#btn-update").on("click",()=>{    //수정 버튼
+			this.update();                  
+		});
+		
 	},
 	
 	save:function(){
 		
     	let Data ={                    
-			title:$("#title").val(),    
-			content:$("#content").val()
+			title:$("#title").val(),       //saveForm.jsp의 title값 가져오기
+			content:$("#content").val()    //saveForm.jsp의 content값 가져오기
 		};
 		
 	$.ajax({	
@@ -37,7 +42,7 @@ let index ={
 	},
 	
 	deleteById: function() {
-		var id = $("#id").text();   //board.js의 id값   (board.js- <span id ="id"><i>${board.id} </i></span>)
+		let id = $("#id").text();   //detail.jsp의 id값 가져오기   (detail.jsp- <span id ="id"><i>${board.id} </i></span>)
 		$.ajax({
 			type: "DELETE",
 			url: "/api/board/" + id,    //어느 주소로 호출할지 
@@ -50,6 +55,32 @@ let index ={
 			alert(JSON.stringify(error));
 		}); // ajax 통신을 이용해서 3개의 데이터를 json으로 변경하여 insert요청한다.  
 
+	},
+	
+	update:function(){
+		
+		let id = $("#id").val();    //updateForm.jsp의 id값 가져오기
+		
+    	let Data ={                      
+			title:$("#title").val(),      //updateForm.jsp의 title값 가져오기
+			content:$("#content").val()   //updateForm.jsp의 content값 가져오기
+		};
+		
+	$.ajax({	
+	   type: "PUT",   //수정 - PUT타입
+	   url:"/api/board/"+id,    //어느 주소로 호출할지 
+	   data:JSON.stringify(Data),   
+	   contentType:"application/json; charset=utf-8", 
+	   dataType:"json"
+	}).done(function(resp){ 
+		alert("글 수정이 완료되었습니다.");
+		console.log(resp);
+		//alert(resp);
+		location.href = "/";
+	}).fail(function(error){// 실패하면 
+		alert(JSON.stringify(error));
+	}); // ajax 통신을 이용해서 3개의 데이터를 json으로 변경하여 insert요청한다.  
+	
 	},
 
 }
