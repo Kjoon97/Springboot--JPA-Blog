@@ -7,7 +7,7 @@
 		<div class="card m-2">     <%-- m-2로하면 마진이 2만큼 생겨서 화면 간의 조금 여유를 줄 수 있음--%>
 			<div class="card-body">
 				<h4 class="card-title">${board.title}</h4>   <%-- Board클래스의 객체인 board의 title이 출력됨.Board클래스 위에 @Data해줌--%>
-				<a href="#" class="btn btn-primary">상세 보기</a>
+				<a href="/board/${board.id}" class="btn btn-primary">상세 보기</a>
 			</div>
 		</div>
 	</c:forEach>

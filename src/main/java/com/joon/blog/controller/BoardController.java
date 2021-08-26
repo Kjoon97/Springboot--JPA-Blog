@@ -8,6 +8,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.joon.blog.config.auth.PrincipalDetail;
 import com.joon.blog.service.BoardService;
@@ -38,6 +39,12 @@ public class BoardController {
 	}      //@Controller는 리턴할 때 viewResolver가 작동하는데 작동하면 해당 index페이지로 model의 정보를 들고 이동한다.("board"라는 컬렉션을 들고 이동)
 	       // viewResolver가 리턴할 때, applicaion.yml에서 설정한 prefix, suffix가 붙어서 리턴된다. return index라고 되어있지만
 	       // 사실상 /WEB-INF/views/index.jsp
+	
+	@GetMapping("/board/{id}")
+	public String findById(@PathVariable int id, Model model) {
+		model.addAttribute("board", boardService.글상세보기(id));
+		return "board/detail";
+	}
 	
 	//User권한이 필요
 	@GetMapping("/board/saveForm")

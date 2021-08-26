@@ -35,5 +35,13 @@ public class BoardService {
 	public Page<Board> 글목록(Pageable pageable){  //리턴 값은 Page타입
 		return boardRepository.findAll(pageable);   //페이징이 되서 호출 가능
 	}
+	
+	
+	public Board 글상세보기(int id){
+		return boardRepository.findById(id)
+				.orElseThrow(()->{
+					return new IllegalArgumentException("글 상세보기 실패: 아이디를 찾을 수 없습니다.");
+				});
+	}
 }
  
