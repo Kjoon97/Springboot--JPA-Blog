@@ -7,7 +7,9 @@ let index ={
 		//$("#btn-login").on("click",()=>{  // 전통적인 로그인 방식
 		//	this.login();                  
 		//});
-		
+		$("#btn-delete").on("click",()=>{    //삭제 버튼
+			this.deleteById();                  
+		});
 	},
 	
 	save:function(){
@@ -34,5 +36,21 @@ let index ={
 	
 	},
 	
+	deleteById: function() {
+		var id = $("#id").text();   //board.js의 id값   (board.js- <span id ="id"><i>${board.id} </i></span>)
+		$.ajax({
+			type: "DELETE",
+			url: "/api/board/" + id,    //어느 주소로 호출할지 
+			dataType: "json"
+		}).done(function(resp) {
+			alert("삭제가 완료되었습니다.");
+			console.log(resp);
+			location.href = "/";
+		}).fail(function(error) {// 실패하면 
+			alert(JSON.stringify(error));
+		}); // ajax 통신을 이용해서 3개의 데이터를 json으로 변경하여 insert요청한다.  
+
+	},
+
 }
 index.init();   //index함수 호출

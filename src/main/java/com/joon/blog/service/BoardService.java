@@ -31,17 +31,22 @@ public class BoardService {
 	} // ( model에 Board에 무슨 값을 가져와야하는지 살펴봐야함)- id는 자동으로 생성되고, title, content는 받을거고, 
       	// 조회수는 강제로 값 넣어줄거고, user정보 가져와야함. reply는 mappedby로 되어있어 데이터베이스에 들어있는 값이 아니므로 신경x
 	
-	
+	@Transactional(readOnly = true)
 	public Page<Board> 글목록(Pageable pageable){  //리턴 값은 Page타입
 		return boardRepository.findAll(pageable);   //페이징이 되서 호출 가능
 	}
 	
-	
+	@Transactional(readOnly = true)
 	public Board 글상세보기(int id){
 		return boardRepository.findById(id)
 				.orElseThrow(()->{
 					return new IllegalArgumentException("글 상세보기 실패: 아이디를 찾을 수 없습니다.");
 				});
+	}
+	
+	@Transactional
+	public void 글삭제하기(int id) {
+		boardRepository.deleteById(id);
 	}
 }
  
