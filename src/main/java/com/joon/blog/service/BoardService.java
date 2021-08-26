@@ -4,6 +4,8 @@ package com.joon.blog.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,8 +32,8 @@ public class BoardService {
       	// 조회수는 강제로 값 넣어줄거고, user정보 가져와야함. reply는 mappedby로 되어있어 데이터베이스에 들어있는 값이 아니므로 신경x
 	
 	
-	public List<Board> 글목록(){
-		return boardRepository.findAll();
+	public Page<Board> 글목록(Pageable pageable){  //리턴 값은 Page타입
+		return boardRepository.findAll(pageable);   //페이징이 되서 호출 가능
 	}
 }
  

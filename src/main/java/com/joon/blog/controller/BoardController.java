@@ -1,6 +1,9 @@
 package com.joon.blog.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,10 +20,11 @@ public class BoardController {
 	
 	
 	@GetMapping({"","/"})  //아무것도 안 붙였을 때랑 /를 붙였을 때 이동
-	public String index(Model model) {  // 데이터를 가져 올 때는 Model이 필요
+	public String index(Model model,@PageableDefault(size =3,sort="id",direction = Sort.Direction.DESC) Pageable pageable) {  
+		// 데이터를 가져 올 때는 Model이 필요, 페이징 구현(사이즈3, 게시글 아이디를 sort로, 최신글이 먼저보이게 direction 설정
 		
-		model.addAttribute("boards",boardService.글목록());   //model에 글목록을 다 가져옴. boardRepository의 findAll()함수로 가능. 
-		
+		model.addAttribute("boards",boardService.글목록(pageable));   //model에 글목록을 다 가져옴. boardRepository의 findAll()함수로 가능. 
+		 //페이징 구현하기위해 pageable를 글목록()에 넘김
 		
 		
 		//컨트롤러에서 세션을 접근하기위해서 파라미터에 @AuthenticationPrincipal PrincipalDetail principal추가
