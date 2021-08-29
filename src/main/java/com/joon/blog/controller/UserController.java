@@ -1,7 +1,10 @@
 package com.joon.blog.controller;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import com.joon.blog.config.auth.PrincipalDetail;
 
 
 // 인증이 안된 사용자들이 출입하 수 있는 경로를 /auth/..이하경로로 허용.
@@ -26,7 +29,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/user/updateForm")// ->인증이 필요없는 것에는 다 auth를 붙임
-	public String updateForm() {
+	public String updateForm(@AuthenticationPrincipal PrincipalDetail principal) {
 		
 		
 		return "user/updateForm";

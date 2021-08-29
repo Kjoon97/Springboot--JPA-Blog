@@ -47,6 +47,7 @@ let index ={
 	
 		let Data ={                    //username은 수정안할것, updateForm.jsp에서 readonly로 되어있음  
 		    id:$("#id").val(),
+		    username:$("#username").val(),
 			password:$("#password").val(),
 			email:$("#email").val()
 		};

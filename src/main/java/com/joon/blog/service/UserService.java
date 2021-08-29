@@ -2,6 +2,10 @@ package com.joon.blog.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,9 +50,8 @@ public class UserService {
 		persistance.setEmail(user.getEmail());
 		//회원 수정 함수 종료시 = 서비스 종료 = 트랜잭션 종료 = commit이 자동으로 된다. 
 		//-> 영속화된 persistance객체의 변화가 감지되면 더티 채킹이 되어 변화된 것들을 DB에 자동으로 update문 날림. 
+		
 	}
-	
-	
 	
 //	전통적인 로그인방법
 //	@Transactional(readOnly = true)  //Select할 때 트랜잭션이 시작하고, 서비스 종료시에 트랜잭션을 종료해서 (정합성 유지)

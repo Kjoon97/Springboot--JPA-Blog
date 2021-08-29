@@ -3,6 +3,7 @@ package com.joon.blog.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -20,6 +21,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{  //쉽게말�
 	
 	@Autowired
 	private PrincipalDetailService principalDetailService;
+	
+	@Bean  //Bean등록하면 어디서든지 DI해서 쓸 수 있음
+	@Override
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+		return super.authenticationManagerBean();
+	}
+
+	
 	
 	@Bean // @Bean등록하면 러턴 값(BCryptPasswordEncoder())을 스프링이 관리한다-> IOC가 된다.-> 필요할 때마다 가져와서 쓰면 된다.
 	public BCryptPasswordEncoder encodePWD() {   //시큐리티 내장 함수
