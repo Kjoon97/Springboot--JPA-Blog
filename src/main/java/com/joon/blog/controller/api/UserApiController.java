@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,7 +21,8 @@ public class UserApiController {
 	private UserService userService; 
 	
 	@PostMapping("/auth/joinProc") // 회원가입 로직이 실행되는 부분으로->인증이 필요없는 것에는 다 auth를 붙임
-	public ResponseDto<Integer>save(@RequestBody User user) {
+	public ResponseDto<Integer>save(@RequestBody User user) {  //json데이터를 받으려면 꼭 @RequestBody를 써줘야한다. 안써주면 json데이터 못 받음
+		                          // json데이터가 아니라 key=value, x-www-form-urlencoded형태 데이터 받고 싶으면 @RequestBody 안쓰면 된다.
 		System.out.println("UserApiController: save 호출됨"); 
 		
 		
@@ -32,6 +34,16 @@ public class UserApiController {
 		return new ResponseDto<Integer>(HttpStatus.OK.value(),1);  // 리턴값이 user.js의 ajax의 done()에 들어감 , 
 		                                                     //status200은 http에서 통신이 정상적으로 성공했다는 뜻
 	}// 자바오브젝트가 리턴되면를 JSON으로 변환해서 리턴한다.(Jackson발동)
+	
+	@PutMapping("/user")
+	public ResponseDto<Integer> update(@RequestBody User user){  //json데이터를 받으려면 꼭 @RequestBody를 써줘야한다. 
+		userService.회원수정(user);
+		return new ResponseDto<Integer>(HttpStatus.OK.value(),1); 
+	}
+	
+	
+	
+	
 	
 	
 //	@PostMapping("/api/user/login")     // 전통적인 로그인 하기

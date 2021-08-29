@@ -4,8 +4,9 @@
 
 <sec:authorize access="isAuthenticated">
    <sec:authentication property="principal" var="principal"/>  <%-- principal은 현재 유저 오브젝트에 다이렉트 접근가능하게해줌, 객체가 var값("principal")에 저장됨.--%>
-</sec:authorize>
-
+</sec:authorize>     <%--현재 세션으로 저장된 로그인한 객체가 principal이라는 이름로 저장되어있고, principal이라는 변수에 저장.--%>
+  <%--var="principal"의 principal이 PrincipalDetail클래스이다. --%>
+ 
 
 <!DOCTYPE html>
 <html lang="en">

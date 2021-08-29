@@ -7,6 +7,9 @@ let index ={
 		//$("#btn-login").on("click",()=>{  // 전통적인 로그인 방식
 		//	this.login();                  
 		//});
+		$("#btn-update").on("click",()=>{ 
+			this.update();             
+		});
 		
 	},
 	
@@ -38,6 +41,34 @@ let index ={
 	}); // ajax 통신을 이용해서 3개의 데이터를 json으로 변경하여 insert요청한다.  
 	
 	},
+	
+	
+	update:function(){//회원정보 수정
+	
+		let Data ={                    //username은 수정안할것, updateForm.jsp에서 readonly로 되어있음  
+		    id:$("#id").val(),
+			password:$("#password").val(),
+			email:$("#email").val()
+		};
+		
+	
+	$.ajax({	
+	   type: "PUT",   
+	   url:"/user",     //UserApiController참조
+	   data:JSON.stringify(Data),  //http body데이터
+	   contentType:"application/json; charset=utf-8", 
+	   dataType:"json" 
+	}).done(function(resp){ 
+		alert("회원 수정이 완료되었습니다.");
+		console.log(resp);
+		//alert(resp);
+		location.href = "/";
+	}).fail(function(error){// 실패하면 
+		alert(JSON.stringify(error));
+	}); // ajax 통신을 이용해서 3개의 데이터를 json으로 변경하여 insert요청한다.  
+	
+	},
+	
 	
 //	login:function(){  // 전통적인 로그인 방식 
 //		//alert("user의 save함수 호출됨");

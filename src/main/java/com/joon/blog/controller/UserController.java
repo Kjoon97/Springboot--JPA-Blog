@@ -24,6 +24,13 @@ public class UserController {
 		
 		return "user/loginForm";
 	}
+	
+	@GetMapping("/user/updateForm")// ->인증이 필요없는 것에는 다 auth를 붙임
+	public String updateForm() {
+		
+		
+		return "user/updateForm";
+	}
 }
 
 
