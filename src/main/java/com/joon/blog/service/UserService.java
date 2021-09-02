@@ -44,13 +44,26 @@ public class UserService {
 		User persistance= userRepository.findById(user.getId()).orElseThrow(()->{  //영속화시키기 
 			return new IllegalArgumentException("회원찾기 실패");
 		});
-		String rawPassword = user.getPassword();
-		String encPassword = encoder.encode(rawPassword);
-		persistance.setPassword(encPassword);                         //영속화된 것을 변경. 
-		persistance.setEmail(user.getEmail());
-		//회원 수정 함수 종료시 = 서비스 종료 = 트랜잭션 종료 = commit이 자동으로 된다. 
-		//-> 영속화된 persistance객체의 변화가 감지되면 더티 채킹이 되어 변화된 것들을 DB에 자동으로 update문 날림. 
 		
+		// Validate체크 -> oauth필드에 값이 비어있으면 수정할 수 있음
+		if(persistance.getOauth()==null || persistance.getOauth().equals("")) {	  
+			String rawPassword = user.getPassword();
+			String encPassword = encoder.encode(rawPassword);
+			persistance.setPassword(encPassword);                         //영속화된 것을 변경. 
+			persistance.setEmail(user.getEmail());
+			//회원 수정 함수 종료시 = 서비스 종료 = 트랜잭션 종료 = commit이 자동으로 된다. 
+			//-> 영속화된 persistance객체의 변화가 감지되면 더티 채킹이 되어 변화된 것들을 DB에 자동으로 update문 날림. 
+		}
+		
+		
+	}
+	
+	@Transactional(readOnly= true)
+	public User 회원찾기(String username) {
+		User user = userRepository.findByUsername(username).orElseGet(()->{
+			return new User();
+		});
+		return user;
 	}
 	
 //	전통적인 로그인방법

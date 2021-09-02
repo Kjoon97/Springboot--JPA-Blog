@@ -3,11 +3,11 @@
 
 <div class="container">
 
-	<button class="btn btn-secondary" onclick="history.back()">돌아가기</button>
+	<button class="btn btn-outline-secondary" onclick="history.back()">돌아가기</button>
 
 	<c:if test="${board.user.id == principal.user.id}">     <%--사용자 본인의 게시판만 수정,삭제 가능--%>
-		<a href="/board/${board.id}/updateForm" class="btn btn-warning">수정</a>
-		<button id="btn-delete" class="btn btn-danger">삭제</button>
+		<a href="/board/${board.id}/updateForm" class="btn btn-outline-warning">수정</a>
+		<button id="btn-delete" class="btn btn-outline-danger">삭제</button>
 	</c:if>
 	
 	<br />

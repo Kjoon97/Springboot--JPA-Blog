@@ -32,7 +32,7 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // 프로젝트에서 연결된 db의 넘버링 전략을 따름(oracle이면 시퀀스, mysql이면 auto_increment)
 	private int id;  // oracle(시퀀스), mysql(auto_increment로 넘버링하는 전략)- id부분을 비워놔도 자동으로 값이 들어감(auto_increment)
 	
-	@Column(nullable=false,length=20,unique= true) //아이디가 null값이 되지않고, 최대한 20자가 넘지않게 설정
+	@Column(nullable=false,length=100,unique= true) //아이디가 null값이 되지않고, 최대한 20자가 넘지않게 설정
 	private String username; //아이디
 	  
 	@Column(nullable=false,length=100) //  비밀번호가 null값이 되지않고, 최대한 100자가 넘지않게 설정
@@ -48,6 +48,8 @@ public class User {
 	                     // string이 아닌 RoleType이라고하면 ADMIN, USER으로 타입이 강제됨 USERS라고 실수로 적는거 방지
 	//String으로 설정하면 managerrrr같은 오타를 입력해도 입력되는데, Enum을 사용하면 admin, user, manager 딱 3개 중 하나만
 	// 들어갈 수 있도록 도메인(범위)을 설정할 수 있다.ex) 성별 도메인 - 남,녀 / 학년 도메인 -1학년~3학년..등
+	
+	private String oauth;  //카카오 로그인 한사람은 "kakao"가 들어감.
 	
 	@CreationTimestamp // 현재 시간이 자동으로 입력 됨 , 현재시간을 createDate에 넣어주고 insert함 , save()함수 작동 시 작동 함
 	private Timestamp createDate; //자바 sql의 Timestamp(회원정보 수정은 updateDate)
