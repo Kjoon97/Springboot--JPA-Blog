@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.joon.blog.config.auth.PrincipalDetail;
+import com.joon.blog.dto.ReplySaveRequestDto;
 import com.joon.blog.dto.ResponseDto;
 import com.joon.blog.model.Board;
 import com.joon.blog.model.Reply;
@@ -41,11 +42,13 @@ public class BoardApiController {
 		return new ResponseDto<Integer>(HttpStatus.OK.value(),1);
 	}
 	
+	
+	
 	@PostMapping("/api/board/{boardId}/reply")
-	public ResponseDto<Integer> replySave(@PathVariable int boardId, @RequestBody Reply reply,@AuthenticationPrincipal PrincipalDetail principal) {
-		
-		boardService.댓글쓰기(principal.getUser(), boardId, reply);
-		return new ResponseDto<Integer>(HttpStatus.OK.value(),1);  // 리턴값이 user.js의 ajax의 done()에 들어감 ,  //정상적으로 잘 됐다고 응답
+	public ResponseDto<Integer> replySave(@RequestBody ReplySaveRequestDto replySaveRequestDto) {
+		                                                                              //PrincipalDetail principal로 유저 정보 가져옴. 
+		boardService.댓글쓰기(replySaveRequestDto);  //필요한 정보를 한방에 집어넣음
+		return new ResponseDto<Integer>(HttpStatus.OK.value(),1);  // 리턴값이 board.js의 ajax의 done()에 들어감 ,  //정상적으로 잘 됐다고 응답
 		                                                     //status200은 http에서 통신이 정상적으로 성공했다는 뜻, 1도 정상이라는 뜻
 	}
 }

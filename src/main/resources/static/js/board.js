@@ -89,15 +89,16 @@ let index ={
 	
 	replySave:function(){
 		alert("fff")
-    	let Data ={               
+    	let Data ={    
+	        userId: $("#userId").val(),   
+	        boardId: $("#boardId").val(),
 			content:$("#reply-content").val()    //saveForm.jsp의 content값 가져오기
 		};
-		let boardId = $("#boardId").val();
 		console.log(Data);
 		
 	$.ajax({	
 	   type: "POST",   //글쓰기(insert)할 것이기 때문에 POST타입.
-	   url:`/api/board/${boardId}/reply`,    //어느 주소로 호출할지 
+	   url:`/api/board/${Data.boardId}/reply`,    //어느 주소로 호출할지 
 	   data:JSON.stringify(Data),   
 	   contentType:"application/json; charset=utf-8", 
 	   dataType:"json"
@@ -105,7 +106,7 @@ let index ={
 		alert("댓글 작성이 완료되었습니다.");
 		console.log(resp);
 		//alert(resp);
-		location.href =`/board/${boardId}`;
+		location.href =`/board/${Data.boardId}`;
 	}).fail(function(error){// 실패하면 
 		alert(JSON.stringify(error));
 	}); // ajax 통신을 이용해서 3개의 데이터를 json으로 변경하여 insert요청한다.  

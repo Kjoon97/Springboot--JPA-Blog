@@ -10,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.joon.blog.dto.ReplySaveRequestDto;
 import com.joon.blog.model.Board;
 import com.joon.blog.model.Reply;
 import com.joon.blog.model.User;
@@ -26,6 +27,9 @@ public class BoardService {
 	
 	@Autowired
 	private ReplyRepository replyRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
 	
 	//서비스함수 만들기  -> 여러 트랜잭션들의 집합체인 하나의 서비스(트랜잭션) 
 	@Transactional
@@ -67,14 +71,24 @@ public class BoardService {
 		}
 	
 	@Transactional
-	public void 댓글쓰기(User user, int boardId, Reply requestReply) {
-		Board board = boardRepository.findById(boardId).orElseThrow(()->{
-					return new IllegalArgumentException("댓글 쓰기 실패: 게시글 id를 찾을 수 없습니다.");
-				});// 여기에서 영속화 완료-> 영속성 컨텍스트에 board가 들어감.(데이터베이스의 board와 똑같이 동기화되어있음)
-		requestReply.setUser(user);  // id, 시간은 자동으로 들어감. 
-		requestReply.setBoard(board);
+	public void 댓글쓰기(ReplySaveRequestDto replySaveRequestDto) {
 		
-		replyRepository.save(requestReply);  //오브젝트 저장
+		User user = userRepository.findById(replySaveRequestDto.getUserId()).orElseThrow(()->{
+			return new IllegalArgumentException("댓글 쓰기 실패: 유저 id를 찾을 수 없습니다.");
+		});// 여기에서 영속화 완료-영속성 컨텍스트에 user가 들어감
+		
+		Board board = boardRepository.findById(replySaveRequestDto.getBoardId()).orElseThrow(()->{
+					return new IllegalArgumentException("댓글 쓰기 실패: 게시글 id를 찾을 수 없습니다.");
+	    });// 여기에서 영속화 완료-> 영속성 컨텍스트에 board가 들어감.(데이터베이스의 board와 똑같이 동기화되어있음)
+	
+		Reply reply = Reply.builder()
+				.user(user)
+				.board(board)
+				.content(replySaveRequestDto.getContent())
+				.build();
+	
+		
+		replyRepository.save(reply);  //오브젝트 저장
 	}
 }
  
