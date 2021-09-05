@@ -14,6 +14,9 @@ let index ={
 		$("#btn-update").on("click",()=>{    //수정 버튼
 			this.update();                  
 		});
+		$("#btn-reply-save").on("click",()=>{    //댓글 등록
+			this.replySave();                  
+		});
 		
 	},
 	
@@ -77,6 +80,32 @@ let index ={
 		console.log(resp);
 		//alert(resp);
 		location.href = "/";
+	}).fail(function(error){// 실패하면 
+		alert(JSON.stringify(error));
+	}); // ajax 통신을 이용해서 3개의 데이터를 json으로 변경하여 insert요청한다.  
+	
+	},
+	
+	
+	replySave:function(){
+		alert("fff")
+    	let Data ={               
+			content:$("#reply-content").val()    //saveForm.jsp의 content값 가져오기
+		};
+		let boardId = $("#boardId").val();
+		console.log(Data);
+		
+	$.ajax({	
+	   type: "POST",   //글쓰기(insert)할 것이기 때문에 POST타입.
+	   url:`/api/board/${boardId}/reply`,    //어느 주소로 호출할지 
+	   data:JSON.stringify(Data),   
+	   contentType:"application/json; charset=utf-8", 
+	   dataType:"json"
+	}).done(function(resp){ 
+		alert("댓글 작성이 완료되었습니다.");
+		console.log(resp);
+		//alert(resp);
+		location.href =`/board/${boardId}`;
 	}).fail(function(error){// 실패하면 
 		alert(JSON.stringify(error));
 	}); // ajax 통신을 이용해서 3개의 데이터를 json으로 변경하여 insert요청한다.  

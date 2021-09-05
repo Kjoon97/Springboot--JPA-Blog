@@ -11,8 +11,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.joon.blog.model.Board;
+import com.joon.blog.model.Reply;
 import com.joon.blog.model.User;
 import com.joon.blog.repository.BoardRepository;
+import com.joon.blog.repository.ReplyRepository;
 import com.joon.blog.repository.UserRepository;
 
 //Service 어노테이션으로 스프링이 컴포넌트 스캔을 통해서 Bean에 등록해줌-> IOC를 해준다는 뜻(메모리에 대신 띄워준다).
@@ -21,6 +23,9 @@ public class BoardService {
 
 	@Autowired   //BoardRepository DI하기
 	private BoardRepository boardRepository;  //여기 객체에 들어온다. 
+	
+	@Autowired
+	private ReplyRepository replyRepository;
 	
 	//서비스함수 만들기  -> 여러 트랜잭션들의 집합체인 하나의 서비스(트랜잭션) 
 	@Transactional
@@ -51,8 +56,7 @@ public class BoardService {
 	
 	@Transactional
 	public void 글수정하기(int id, Board requestBoard) {
-		Board board = boardRepository.findById(id)
-				.orElseThrow(()->{
+		Board board = boardRepository.findById(id).orElseThrow(()->{
 					return new IllegalArgumentException("글 찾기 실패");
 				});// 여기에서 영속화 완료-> 영속성 컨텍스트에 board가 들어감.(데이터베이스의 board와 똑같이 동기화되어있음)
 		  board.setTitle(requestBoard.getTitle());   // 영속화 후 데이터 변경
@@ -61,5 +65,16 @@ public class BoardService {
 		  //영속화 되어있는 board의 데이터가 달라졌기 때문이다. 더티체킹이 일어나면서 자동업데이트가 된다. (db쪽으로 flush됨.)->그렇기위해 	@Transactional을 걸어둔다.
 		  //트랜잭션을 타기위해서. 
 		}
+	
+	@Transactional
+	public void 댓글쓰기(User user, int boardId, Reply requestReply) {
+		Board board = boardRepository.findById(boardId).orElseThrow(()->{
+					return new IllegalArgumentException("댓글 쓰기 실패: 게시글 id를 찾을 수 없습니다.");
+				});// 여기에서 영속화 완료-> 영속성 컨텍스트에 board가 들어감.(데이터베이스의 board와 똑같이 동기화되어있음)
+		requestReply.setUser(user);  // id, 시간은 자동으로 들어감. 
+		requestReply.setBoard(board);
+		
+		replyRepository.save(requestReply);  //오브젝트 저장
+	}
 }
  

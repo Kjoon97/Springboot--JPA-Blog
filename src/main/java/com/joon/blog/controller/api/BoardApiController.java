@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.joon.blog.config.auth.PrincipalDetail;
 import com.joon.blog.dto.ResponseDto;
 import com.joon.blog.model.Board;
+import com.joon.blog.model.Reply;
 import com.joon.blog.service.BoardService;
 
 @RestController // 데이터만 리턴해줄 것이기 때문에 사용
@@ -38,5 +39,13 @@ public class BoardApiController {
 	public ResponseDto<Integer> update(@PathVariable int id, @RequestBody Board board){
 		boardService.글수정하기(id,board);
 		return new ResponseDto<Integer>(HttpStatus.OK.value(),1);
+	}
+	
+	@PostMapping("/api/board/{boardId}/reply")
+	public ResponseDto<Integer> replySave(@PathVariable int boardId, @RequestBody Reply reply,@AuthenticationPrincipal PrincipalDetail principal) {
+		
+		boardService.댓글쓰기(principal.getUser(), boardId, reply);
+		return new ResponseDto<Integer>(HttpStatus.OK.value(),1);  // 리턴값이 user.js의 ajax의 done()에 들어감 ,  //정상적으로 잘 됐다고 응답
+		                                                     //status200은 http에서 통신이 정상적으로 성공했다는 뜻, 1도 정상이라는 뜻
 	}
 }
