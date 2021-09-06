@@ -73,22 +73,25 @@ public class BoardService {
 	@Transactional
 	public void 댓글쓰기(ReplySaveRequestDto replySaveRequestDto) {
 		
-		User user = userRepository.findById(replySaveRequestDto.getUserId()).orElseThrow(()->{
-			return new IllegalArgumentException("댓글 쓰기 실패: 유저 id를 찾을 수 없습니다.");
-		});// 여기에서 영속화 완료-영속성 컨텍스트에 user가 들어감
-		
-		Board board = boardRepository.findById(replySaveRequestDto.getBoardId()).orElseThrow(()->{
-					return new IllegalArgumentException("댓글 쓰기 실패: 게시글 id를 찾을 수 없습니다.");
-	    });// 여기에서 영속화 완료-> 영속성 컨텍스트에 board가 들어감.(데이터베이스의 board와 똑같이 동기화되어있음)
+//		User user = userRepository.findById(replySaveRequestDto.getUserId()).orElseThrow(()->{   //ReplySaveRequestDtod의 msave()덕분에 영속화할 필요 없어짐.
+//			return new IllegalArgumentException("댓글 쓰기 실패: 유저 id를 찾을 수 없습니다.");
+//		});// 여기에서 영속화 완료-영속성 컨텍스트에 user가 들어감
+//		
+//		Board board = boardRepository.findById(replySaveRequestDto.getBoardId()).orElseThrow(()->{
+//					return new IllegalArgumentException("댓글 쓰기 실패: 게시글 id를 찾을 수 없습니다.");
+//	    });// 여기에서 영속화 완료-> 영속성 컨텍스트에 board가 들어감.(데이터베이스의 board와 똑같이 동기화되어있음)
+//	
+//		Reply reply = Reply.builder()
+//				.user(user)
+//				.board(board)
+//				.content(replySaveRequestDto.getContent())
+//				.build();
 	
-		Reply reply = Reply.builder()
-				.user(user)
-				.board(board)
-				.content(replySaveRequestDto.getContent())
-				.build();
-	
+//		
+//		replyRepository.save(reply);  //오브젝트 저장
 		
-		replyRepository.save(reply);  //오브젝트 저장
+		
+		replyRepository.mSave(replySaveRequestDto.getUserId(),replySaveRequestDto.getBoardId(),replySaveRequestDto.getContent());
 	}
 }
  
