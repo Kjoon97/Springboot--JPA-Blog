@@ -88,7 +88,6 @@ let index ={
 	
 	
 	replySave:function(){
-		alert("fff")
     	let Data ={    
 	        userId: $("#userId").val(),   
 	        boardId: $("#boardId").val(),
@@ -98,7 +97,7 @@ let index ={
 		
 	$.ajax({	
 	   type: "POST",   //글쓰기(insert)할 것이기 때문에 POST타입.
-	   url:`/api/board/${Data.boardId}/reply`,    //어느 주소로 호출할지 
+	   url:`/api/board/${Data.boardId}/reply`,    //어느 주소로 호출할지 -> BoardApiController에 주소. 
 	   data:JSON.stringify(Data),   
 	   contentType:"application/json; charset=utf-8", 
 	   dataType:"json"
@@ -110,6 +109,22 @@ let index ={
 	}).fail(function(error){// 실패하면 
 		alert(JSON.stringify(error));
 	}); // ajax 통신을 이용해서 3개의 데이터를 json으로 변경하여 insert요청한다.  
+	
+	},
+	
+	replyDelete:function(boardId,replyId){    // detail.jsp에서 리스너가 아니라 onClick함수이기때문에 위에 init function에 안 넣어도 된다. 
+	$.ajax({	
+	   type: "DELETE",  
+	   url:`/api/board/${boardId}/reply/${replyId}`,    //어느 주소로 호출할지 ,,어떤 데이터를 들고갈게 아니기 때문에 Data.boarId라고 안함. 
+	/*  data:JSON.stringify(Data),                      
+	   contentType:"application/json; charset=utf-8", */   //마찬가지로 데이터를 들고갈게 아니기때문에 필요 없음 -> 주석처리
+	   dataType:"json"
+	}).done(function(resp){ 
+		alert("댓글 삭제 성공");
+		location.href =`/board/${boardId}`;   //삭제되면 해당 로직으로 다시 돌아오기.
+	}).fail(function(error){// 실패하면 
+		alert(JSON.stringify(error));
+	}); 
 	
 	},
 

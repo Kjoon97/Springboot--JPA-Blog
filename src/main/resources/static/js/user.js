@@ -32,10 +32,17 @@ let index ={
 	   contentType:"application/json; charset=utf-8", //data는 json 데이터를 보내는 것이고, 문자는 utf-8이다. 알려주기위함
 	   dataType:"json" // 요청을 서버로해서 응답이 왔을 때 기본적으로 모든 것이 문자열인데(생긴게 json이라면) javascript객체로 변경( 이 코드는 없어도 괜찮)
 	}).done(function(resp){ // 응답의 결과가 성공했을 때 그 결과 오브젝트(자바스크립트)가 resp에 전달됨. UserApiController의 리턴값 1이 전달 됨. 
+		if(resp.status === 500){
+			alert("회원 가입이 실패하였습니다.");
+		}else{
+			alert("회원 가입이 완료되었습니다.");
+			location.href = "/";
+		}
+		
 		alert("회원 가입이 완료되었습니다.");
 		console.log(resp);
 		//alert(resp);
-		location.href = "/";
+		//location.href = "/";
 	}).fail(function(error){// 실패하면 
 		alert(JSON.stringify(error));
 	}); // ajax 통신을 이용해서 3개의 데이터를 json으로 변경하여 insert요청한다.  

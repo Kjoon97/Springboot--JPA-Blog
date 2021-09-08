@@ -49,4 +49,10 @@ public class BoardApiController {
 		return new ResponseDto<Integer>(HttpStatus.OK.value(),1);  // 리턴값이 board.js의 ajax의 done()에 들어감 ,  //정상적으로 잘 됐다고 응답
 		                                                     //status200은 http에서 통신이 정상적으로 성공했다는 뜻, 1도 정상이라는 뜻
 	}
+	
+	@DeleteMapping("/api/board/{boardId}/reply/{replyId}")   //boardId 넣는 이유는 특별한 목적 없고 단지 주소 받아오기 위함. 
+	public ResponseDto<Integer> replyDelete(@PathVariable int replyId){
+		boardService.댓글삭제(replyId);
+		return new ResponseDto<Integer>(HttpStatus.OK.value(),1);
+	}
 }

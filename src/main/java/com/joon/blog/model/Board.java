@@ -3,6 +3,7 @@ package com.joon.blog.model;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -52,8 +53,8 @@ public class Board {
 	                   // ->(필드 값은 userId로 되고, 연관관계는 ManyToOne으로 만들어짐)
 	                  // -> User 클래스를 참조하면서 자동으로 Board에서 외래키가 만들어짐
 	
-	@OneToMany(mappedBy ="board", fetch = FetchType.EAGER) //원래는 OneToMany가 기본 패치 타입이 lazy이나 펼치기가 아닌 개방형 댓글이기 때문에eager로 함.
-    @JsonIgnoreProperties({"board"})
+	@OneToMany(mappedBy ="board", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE) //원래는 OneToMany가 기본 패치 타입이 lazy이나 펼치기가 아닌 개방형 댓글이기 때문에eager로 함.
+    @JsonIgnoreProperties({"board"})                                      // CascadeType.REMOVE를 하면 Board삭제 시 댓글 모두 삭제. 안하면 댓글 때문에 Board가 삭제가 안됨.
 	@OrderBy("id desc")  // 댓글들을 id 오름차순으로 정렬
 	private List<Reply> replys;      //mappedBy로 적혀있기 때문에 데이터베이스에 들어가는값이 아님. 연관관계 주인이 아니다. (난 외래키가 아니야)
 	                                //나중에 select하기위해 있는 코드이다. 
