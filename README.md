@@ -3,7 +3,7 @@
 <br>
 <br>
 비회원에게 보이는 홈 화면
-![비회원이 보는 홈 화면](https://user-images.githubusercontent.com/70521476/133618030-c4d2688e-cf58-45aa-899a-86b5fa3bcd43.png)
+![비회원이 보는 홈 화면](https://user-images.githubusercontent.com/70521476/133620577-1e21fb57-0d05-4330-8199-69bfa8e57796.png)
 <br>
 <br>
 회원에게 보이는 홈 화면
