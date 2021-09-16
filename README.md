@@ -9,6 +9,9 @@
 5. 게시 글 추가, 삭제, 수정, 상세보기
 6. 게시 글 목록 페이징
 
+### Backend
+Springboot -JPA
+
 ### Frontend
 Bootstrap
 
