@@ -8,33 +8,14 @@
 <br>
 회원에게 보이는 홈 화면
 ![완 회원일 시에 보는 화면](https://user-images.githubusercontent.com/70521476/133618057-b80a7ee7-52b1-4be0-8191-dc69fe6d91ae.png)
-<br>
-<br>
-회원가입 화면
-![완 회원가입 화면](https://user-images.githubusercontent.com/70521476/133618143-47850920-9e97-4981-b081-fdf12de69562.png)
-<br>
-<br>
-로그인 화면
-![완 로그인 화면](https://user-images.githubusercontent.com/70521476/133618113-b9366868-088b-4149-9e98-de14a142e4a8.png)
-<br>
-<br>
-회원 수정 화면
-![완 회원 수정 화면](https://user-images.githubusercontent.com/70521476/133618207-3b177db4-feb3-48a6-adf6-3525f0c1b9f3.png)
-<br>
-<br>
-글쓰기 화면
-![완 글쓰기 화면](https://user-images.githubusercontent.com/70521476/133618263-eb67736f-3990-4de7-b732-3da434cd6ad4.png)
-<br>
-<br>
-내 게시글 상세보기 화면
-![완 내 게시글 상세 보기](https://user-images.githubusercontent.com/70521476/133618293-48c3f53c-ba97-4aeb-9086-0643c074715b.png)
-<br>
-<br>
-다른 사람 게시글 상세보기 화면
-![완 다른 사람 게시글 상세보기](https://user-images.githubusercontent.com/70521476/133618307-3ec81d46-0224-4e85-9580-1595f2a91b02.png)
-<br>
-<br>
-댓글 기능
-![완성결과4](https://user-images.githubusercontent.com/70521476/133620283-5ea35009-1b07-427d-8389-95f302a6548b.png)
 
+기능 
+1. 로그인, 로그아웃 기능 - 스프링 시큐리티, OAuth2.0 카카오 로그인 구현
+2. 회원가입 기능 - 스프링 시큐리티
+3. 댓글 추가 삭제 
+4. 회원 정보 수정하기
+5. 게시 글 추가, 삭제, 수정, 상세보기
+6. 게시 글 목록 페이징
 
+데이터베이스
+MySql 
