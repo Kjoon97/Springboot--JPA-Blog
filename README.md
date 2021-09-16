@@ -12,7 +12,9 @@
 **글쓰기 화면**
 ![완성결과3](https://user-images.githubusercontent.com/70521476/133599501-d390850a-25af-4ace-92a8-9ddaff518e3c.png)
 <br>
+<br>
 ![완성 결과6](https://user-images.githubusercontent.com/70521476/133615459-2a70708a-85bf-4435-991f-5b5145ec62fa.png)
+<br>
 <br>
 **게시글 상세보기 화면**
 ![완성결과4](https://user-images.githubusercontent.com/70521476/133599509-a9844bbe-2888-422b-b6b6-fdfae4519ddd.png)
