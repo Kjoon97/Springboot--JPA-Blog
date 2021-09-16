@@ -32,4 +32,9 @@
 <br>
 다른 사람 게시글 상세보기 화면
 ![완 다른 사람 게시글 상세보기](https://user-images.githubusercontent.com/70521476/133618307-3ec81d46-0224-4e85-9580-1595f2a91b02.png)
+<br>
+<br>
+댓글 보이기
+![완성결과4](https://user-images.githubusercontent.com/70521476/133620283-5ea35009-1b07-427d-8389-95f302a6548b.png)
+
 
