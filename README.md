@@ -8,20 +8,3 @@
 4. 회원 정보 수정하기
 5. 게시 글 추가, 삭제, 수정, 상세보기
 6. 게시 글 목록 페이징
-
-### Backend
-Springboot -JPA
-
-### Frontend
-Bootstrap
-
-### DB
-MySql 
-<br>
-<br>
-
-### 비회원에게 보이는 홈 화면
-![비회원이 보는 홈 화면](https://user-images.githubusercontent.com/70521476/133620577-1e21fb57-0d05-4330-8199-69bfa8e57796.png)
-### 회원에게 보이는 홈 화면
-![완 회원일 시에 보는 화면](https://user-images.githubusercontent.com/70521476/133618057-b80a7ee7-52b1-4be0-8191-dc69fe6d91ae.png)
-
